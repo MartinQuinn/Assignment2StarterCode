@@ -81,5 +81,6 @@ class Player
     stroke(colour);
     fill(colour);    
     rect(pos.x, pos.y, 20, 20);
+    
   }  
 }

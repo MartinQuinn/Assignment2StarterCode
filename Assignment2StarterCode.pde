@@ -80,6 +80,9 @@ char buttonNameToKey(XML xml, String buttonName)
   {
     return DOWN;
   }
+  //  this.start = start;
+  //  this.button1 = button1;
+  //  this.button2 = button2;
   //.. Others to follow
   return value.charAt(0);  
 }
@@ -100,12 +103,13 @@ void setUpPlayerControllers()
     int x = (i + 1) * gap;
     p.pos.x = x;
     p.pos.y = 300;
-   players.add(p);         
+    players.add(p);         
   }
 }
 
 void menuScreen()
 {
+  
   
   
 }

@@ -83,6 +83,9 @@ class Player
     
     triangle(pos.x,pos.y-20,pos.x+20,pos.y+20,pos.x-20,pos.y+20);
     ps.setEmitter(pos.x,pos.y);
+    fill(0);
+    
+    ellipse(width/2,height/2,150,50);
     
   }  
 }

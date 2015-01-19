@@ -8,15 +8,37 @@
 
 ArrayList<Player> players = new ArrayList<Player>();
 boolean[] keys = new boolean[526];
+// Particle System object
+ParticleSystem ps;
+// A PImage for particle's texture
+PImage sprite;  
+
 
 void setup()
 {
-  size(500, 500);
+  size(500, 500, P2D);
   setUpPlayerControllers();
+  
+  // Load the image
+  sprite = loadImage("sprite.png");
+  // A new particle system with 10,000 particles
+  ps = new ParticleSystem(65);
+
+  // Writing to the depth buffer is disabled to avoid rendering
+  // artifacts due to the fact that the particles are semi-transparent
+  // but not z-sorted.
+  hint(DISABLE_DEPTH_MASK);
 }
 
 void draw()
 {
+  
+  
+  background(0);
+  // Update and display system
+  ps.update();
+  ps.display();
+  
   for(Player player:players)
   {
     player.update();
@@ -82,7 +104,7 @@ void setUpPlayerControllers()
   }
 }
 
-void menuScreen();
+void menuScreen()
 {
   
   

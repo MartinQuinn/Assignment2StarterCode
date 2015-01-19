@@ -72,7 +72,7 @@ class Player
     }
     if (checkKey(button2))
     {
-      println("Player " + index + " butt2");
+      println("Player " + index + " button 2");
     }    
   }
   
@@ -80,7 +80,9 @@ class Player
   {    
     stroke(colour);
     fill(colour);    
-    rect(pos.x, pos.y, 20, 20);
+    
+    triangle(pos.x,pos.y-20,pos.x+20,pos.y+20,pos.x-20,pos.y+20);
+    ps.setEmitter(pos.x,pos.y);
     
   }  
 }

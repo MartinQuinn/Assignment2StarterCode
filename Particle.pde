@@ -16,7 +16,8 @@ class Particle {
   // A single force
   PVector gravity = new PVector(0, 1);
 
-  Particle() {    
+  Particle() 
+  {    
     partSize = random(10, 20);
     // The particle is a textured quad
     part = createShape();
@@ -37,11 +38,13 @@ class Particle {
     rebirth(width/2, height/2);
   }
 
-  PShape getShape() {
+  PShape getShape() 
+  {
     return part;
   }
 
-  void rebirth(float x, float y) {
+  void rebirth(float x, float y) 
+  {
     float a = random(TWO_PI);
     float speed = random(0.5, 4);
     // A velocity with random angle and magnitude
@@ -58,17 +61,21 @@ class Particle {
   }
 
   // Is it off the screen, or its lifespan is over?
-  boolean isDead() {
+  boolean isDead() 
+  {
     if (center.x > width  || center.x < 0 || 
-        center.y > height || center.y < 0 || lifespan < 0) {
+        center.y > height || center.y < 0 || lifespan < 0) 
+    {
       return true;
     } 
-    else {
+    else 
+    {
       return false;
     }
   }
 
-  void update() {
+  void update() 
+  {
     // Decrease life
     lifespan = lifespan - 1;
     // Apply gravity

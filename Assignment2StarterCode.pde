@@ -6,7 +6,8 @@
     See: https://github.com/skooter500/DT228-OOP 
 */
 
-ArrayList<Player> players = new ArrayList<Player>();
+ArrayList<Player>    players   = new ArrayList<Player>();
+ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
 boolean[] keys = new boolean[526];
 // Particle System object
 ParticleSystem ps;
@@ -30,6 +31,12 @@ void setup()
   hint(DISABLE_DEPTH_MASK);
 }
 
+
+void intialiseObstacles()
+{
+  Obstacles o = new Obstacles(250,250, color(255));
+}
+
 void draw()
 {
   
@@ -38,9 +45,16 @@ void draw()
   // Update and display system
   ps.update();
   ps.display();
+  for(Obstacles Obstacles:obstacles)
+  {
+    Obstacles.update();
+    Obstacles.display();
+  }
+  
   
   for(Player player:players)
   {
+    
     player.update();
     player.display();
   }
@@ -96,10 +110,7 @@ void setUpPlayerControllers()
   for(int i = 0 ; i < children.length ; i ++)  
   {
     XML playerXML = children[i];
-    Player p = new Player(
-            i
-            , color(random(0, 255), random(0, 255), random(0, 255))
-            , playerXML);
+    Player p = new Player(i, color(255), playerXML);
     int x = (i + 1) * gap;
     p.pos.x = x;
     p.pos.y = 300;

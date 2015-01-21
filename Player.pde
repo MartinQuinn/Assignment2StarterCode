@@ -83,20 +83,13 @@ class Player
   
   void display()
   {    
-    scal = 1.5;
+  
     stroke(colour);
-    fill(colour);    
-    
+    fill(colour);   
     triangle(pos.x,pos.y-20,pos.x+20,pos.y+20,pos.x-20,pos.y+20);
     fill(255);
     triangle(pos.x,pos.y-20,pos.x+40,pos.y+10,pos.x-40,pos.y+10);
     ps.setEmitter(pos.x,pos.y);
-    
-    noFill();
-    float increaseCirW = cirWidth*scal;
-    float increaseCirH = cirHeight*scal;
-    ellipse(width/2,height/2+prog,increaseCirW,increaseCirH);
-    prog = prog +1;
     
   }  
 }

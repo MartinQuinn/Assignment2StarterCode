@@ -8,6 +8,7 @@
 
 ArrayList<Player>    players   = new ArrayList<Player>();
 ArrayList<Obstacles> obstacles = new ArrayList<Obstacles>();
+ArrayList<PowerUP> powerUP = new ArrayList<PowerUP>();
 boolean[] keys = new boolean[526];
 // Particle System object
 ParticleSystem ps;
@@ -15,11 +16,16 @@ ParticleSystem ps;
 PImage sprite; 
 float obsWidth  = 60;
 float obsHeight = 50;
+PImage crash;
+PImage Ast;
+PImage Star;
+PImage MotorWay;
+PImage pow;
 
 
 void setup()
 {
-  size(500, 500, P2D);
+  size(800, 640, P2D);
   setUpPlayerControllers();
   intialiseObstacles();
   
@@ -122,20 +128,25 @@ void setUpPlayerControllers()
 
 void intialiseObstacles()
 {
-  Obstacles o1 = new Obstacles(obsWidth,obsHeight);
-  o1.pos.x= random(obsWidth,width-obsWidth);
-  o1.pos.y= random(-175,-25);
+  Obstacles o1 = new Obstacles(1,obsWidth,obsHeight);
+  o1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
+  o1.pos.y= random(-125,-25);
   obstacles.add(o1);
   
-  Obstacles o2 = new Obstacles(obsWidth,obsHeight);
-  o2.pos.x= random(obsWidth,width-obsWidth);
+  Obstacles o2 = new Obstacles(2,obsWidth,obsHeight);
+  o2.pos.x= random(-obsWidth*2,width-(obsWidth*2));
   o2.pos.y= random(-125,-25);
   obstacles.add(o2);
   
-  Obstacles o3 = new Obstacles(obsWidth,obsHeight);
-  o3.pos.x= random(obsWidth,width-obsWidth);
-  o3.pos.y= random(-175,-25);
+  Obstacles o3 = new Obstacles(3,obsWidth,obsHeight);
+  o3.pos.x= random(-obsWidth*2,width-(obsWidth*2));
+  o3.pos.y= random(-125,-25);
   obstacles.add(o3);
+  
+  PowerUP p1 = new PowerUP(1,obsWidth,obsHeight);
+  p1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
+  p1.pos.y= random(-125,-25);
+  obstacles.add(p1);
   
   
 }

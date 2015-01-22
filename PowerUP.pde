@@ -1,4 +1,4 @@
-class Obstacles
+class PowerUP extends Obstacles
 {
   PVector pos;
   color   colour;
@@ -8,15 +8,15 @@ class Obstacles
   float   cirHeight ;
   float   halfWidth  = width/2  ;
   float   halfHeight = height/2 ;
-  int     index;
+  int     index ;
   
-  Obstacles()
+  PowerUP()
   {
     pos = new PVector();
     
   }
   
-  Obstacles(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
+  PowerUP(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
   {
     this();
     this.index      = index;
@@ -29,7 +29,7 @@ class Obstacles
     this.halfHeight = halfHeight;
   }
   
-  Obstacles(int index,float cirWidth, float cirHeight )
+  PowerUP(int index,float cirWidth, float cirHeight )
   {
     this(); 
     this.index      = index;
@@ -39,22 +39,6 @@ class Obstacles
   
   void update()
   {
-    if(pos.y+prog< halfHeight/2)
-    {
-      pos.x *= 1.001;
-    }
-    else if((pos.y+prog< halfHeight))
-    {
-      pos.x *= 1.002;
-    }
-    else if(pos.y+prog > halfHeight)
-    {
-      pos.x /= 1.001;
-    }
-    else if((pos.y+prog > (3*(halfHeight/2))))
-    {
-      pos.x *= 1.003;
-    }
     if(pos.y+prog >= height+cirHeight)
     {
       pos.x = random(obsWidth,width-obsWidth);
@@ -75,9 +59,9 @@ class Obstacles
   
   void display()
   {
-    PImage Ast = loadImage("ast2.png");
+    PImage Star = loadImage("starBonus.png");
     noFill();
-    image(Ast,pos.x,pos.y+prog,cirWidth,cirHeight);
+    image(Star,pos.x,pos.y+prog,cirWidth,cirHeight);
     prog = prog + 3f;
   }
 }

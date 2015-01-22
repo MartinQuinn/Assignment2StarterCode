@@ -48,19 +48,19 @@ class Player
   {
     if (checkKey(up))
     {
-      pos.y -= 1;
+      pos.y /= 1.01;
     }
     if (checkKey(down))
     {
-      pos.y += 1;
+      pos.y *= 1.01;
     }
     if (checkKey(left))
     {
-      pos.x -= 1;
+      pos.x -= 3;
     }    
     if (checkKey(right))
     {
-      pos.x += 1;
+      pos.x *= 1.05;
     }
     if (checkKey(start))
     {

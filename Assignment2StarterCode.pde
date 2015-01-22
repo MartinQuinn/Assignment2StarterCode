@@ -12,17 +12,20 @@ boolean[] keys = new boolean[526];
 // Particle System object
 ParticleSystem ps;
 // A PImage for particle's texture
-PImage sprite;  
+PImage sprite; 
+float obsWidth  = 60;
+float obsHeight = 50;
 
 
 void setup()
 {
   size(500, 500, P2D);
   setUpPlayerControllers();
+  intialiseObstacles();
   
   // Load the image
   sprite = loadImage("sprite.png");
-  // A new particle system with 10,000 particles
+  // A new particle system with particles
   ps = new ParticleSystem(65);
 
   // Writing to the depth buffer is disabled to avoid rendering
@@ -32,21 +35,18 @@ void setup()
 }
 
 
-void intialiseObstacles()
-{
-  Obstacles o = new Obstacles(250,250, color(255));
-}
+
 
 void draw()
 {
   
-  
+
   background(0);
   // Update and display system
-  ps.update();
-  ps.display();
+  
   for(Obstacles Obstacles:obstacles)
   {
+    
     Obstacles.update();
     Obstacles.display();
   }
@@ -54,9 +54,11 @@ void draw()
   
   for(Player player:players)
   {
-    
+    ps.update();
+    ps.display();
     player.update();
     player.display();
+    
   }
 }
 
@@ -116,6 +118,26 @@ void setUpPlayerControllers()
     p.pos.y = 300;
     players.add(p);         
   }
+}
+
+void intialiseObstacles()
+{
+  Obstacles o1 = new Obstacles(obsWidth,obsHeight);
+  o1.pos.x= random(obsWidth,width-obsWidth);
+  o1.pos.y= random(-175,-25);
+  obstacles.add(o1);
+  
+  Obstacles o2 = new Obstacles(obsWidth,obsHeight);
+  o2.pos.x= random(obsWidth,width-obsWidth);
+  o2.pos.y= random(-125,-25);
+  obstacles.add(o2);
+  
+  Obstacles o3 = new Obstacles(obsWidth,obsHeight);
+  o3.pos.x= random(obsWidth,width-obsWidth);
+  o3.pos.y= random(-175,-25);
+  obstacles.add(o3);
+  
+  
 }
 
 void menuScreen()

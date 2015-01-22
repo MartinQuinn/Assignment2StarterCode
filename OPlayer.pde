@@ -8,13 +8,8 @@ class Player
   char start;
   char button1;
   char button2;
-  int index;
+  int  index;
   color colour;
-  float scal,prog;
-  float cirWidth = 150;
-  float cirHeight = 50;
-  
-  
     
   Player()
   {
@@ -24,13 +19,13 @@ class Player
   Player(int index, color colour, char up, char down, char left, char right, char start, char button1, char button2)
   {
     this();
-    this.index = index;
-    this.colour = colour;
-    this.up = up;
-    this.down = down;
-    this.left = left;
-    this.right = right;
-    this.start = start;
+    this.index   = index;
+    this.colour  = colour;
+    this.up      = up;
+    this.down    = down;
+    this.left    = left;
+    this.right   = right;
+    this.start   = start;
     this.button1 = button1;
     this.button2 = button2;
   }

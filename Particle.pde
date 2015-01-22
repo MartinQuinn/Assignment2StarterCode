@@ -5,7 +5,7 @@ class Particle {
   // Velocity
   PVector center;
   PVector velocity;
-  // Lifespane is tied to alpha
+  // Lifespan is tied to alpha
   float lifespan;
 
   // The particle PShape

@@ -39,22 +39,6 @@ class Obstacles
   
   void update()
   {
-    if(pos.y+prog< halfHeight/2)
-    {
-      pos.x *= 1.001;
-    }
-    else if((pos.y+prog< halfHeight))
-    {
-      pos.x *= 1.002;
-    }
-    else if(pos.y+prog > halfHeight)
-    {
-      pos.x /= 1.001;
-    }
-    else if((pos.y+prog > (3*(halfHeight/2))))
-    {
-      pos.x *= 1.003;
-    }
     if(pos.y+prog >= height+cirHeight)
     {
       pos.x = random(obsWidth,width-obsWidth);
@@ -62,7 +46,7 @@ class Obstacles
       
       cirWidth = obsWidth;
       cirHeight = obsHeight;
-      prog=0;
+      prog=1;
     }
     else
     {
@@ -76,8 +60,12 @@ class Obstacles
   void display()
   {
     PImage Ast = loadImage("ast2.png");
+    fill(0);
+    stroke(255);
+    ellipse(pos.x+(cirWidth/2),pos.y+prog+(cirHeight/2),cirWidth-3,cirHeight-3);
     noFill();
     image(Ast,pos.x,pos.y+prog,cirWidth,cirHeight);
-    prog = prog + 3f;
+    
+    prog = prog + 2 ;
   }
 }

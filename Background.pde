@@ -1,12 +1,21 @@
-class PowerUP extends Obstacles
+class Background extends Obstacles
 {
-  PowerUP()
+  PVector pos;
+  color   colour;
+  float   scal ;
+  float   prog ;
+  float   cirWidth ;
+  float   cirHeight ;
+  float   halfWidth  = width/2  ;
+  float   halfHeight = height/2 ;
+  int     index ;
+  
+  Background()
   {
     pos = new PVector();
-    
   }
   
-  PowerUP(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
+  Background(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
   {
     this();
     this.index      = index;
@@ -19,7 +28,7 @@ class PowerUP extends Obstacles
     this.halfHeight = halfHeight;
   }
   
-  PowerUP(int index,float cirWidth, float cirHeight )
+  Background(int index,float cirWidth, float cirHeight )
   {
     this(); 
     this.index      = index;

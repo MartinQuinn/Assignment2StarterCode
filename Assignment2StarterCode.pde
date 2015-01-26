@@ -19,13 +19,12 @@ float obsHeight = 50;
 PImage crash;
 PImage Ast;
 PImage Star;
-PImage MotorWay;
-PImage pow;
+
 
 
 void setup()
 {
-  size(800, 640, P2D);
+  size(800, 640, P3D);
   setUpPlayerControllers();
   intialiseObstacles();
   
@@ -33,6 +32,7 @@ void setup()
   sprite = loadImage("sprite.png");
   // A new particle system with particles
   ps = new ParticleSystem(65);
+ 
 
   // Writing to the depth buffer is disabled to avoid rendering
   // artifacts due to the fact that the particles are semi-transparent
@@ -113,15 +113,16 @@ void setUpPlayerControllers()
 {
   XML xml = loadXML("arcade.xml");
   XML[] children = xml.getChildren("player");
-  int gap = width / (children.length + 1);
+  int gap = height/3;
+  //int gap = width / (children.length + 1);
   
   for(int i = 0 ; i < children.length ; i ++)  
   {
     XML playerXML = children[i];
     Player p = new Player(i, color(255), playerXML);
-    int x = (i + 1) * gap;
-    p.pos.x = x;
-    p.pos.y = 300;
+    int y = (i + 1) * gap;
+    p.pos.x = height/3;
+    p.pos.y = y;
     players.add(p);         
   }
 }
@@ -130,7 +131,7 @@ void intialiseObstacles()
 {
   Obstacles o1 = new Obstacles(1,obsWidth,obsHeight);
   o1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
-  o1.pos.y= random(-125,-25);
+  o1.pos.y= random(0,500);
   obstacles.add(o1);
   
   Obstacles o2 = new Obstacles(2,obsWidth,obsHeight);
@@ -151,9 +152,4 @@ void intialiseObstacles()
   
 }
 
-void menuScreen()
-{
-  
-  
-  
-}
+

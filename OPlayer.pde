@@ -52,15 +52,15 @@ class Player
     }
     if (checkKey(down))
     {
-      pos.y *= 1.01;
+      pos.y += 5;
     }
     if (checkKey(left))
     {
-      pos.x -= 3;
+      pos.x -= 5;
     }    
     if (checkKey(right))
     {
-      pos.x *= 1.05;
+      pos.x += 5;
     }
     if (checkKey(start))
     {
@@ -80,11 +80,42 @@ class Player
   {    
   
     stroke(colour);
-    fill(colour);   
-    triangle(pos.x,pos.y-20,pos.x+20,pos.y+20,pos.x-20,pos.y+20);
-    fill(255);
-    triangle(pos.x,pos.y-20,pos.x+40,pos.y+10,pos.x-40,pos.y+10);
-    ps.setEmitter(pos.x,pos.y);
+       
+//    triangle(pos.x,pos.y,pos.x-40,pos.y-40,pos.x-40,pos.y+40);
+//    triangle(pos.x,pos.y,pos.x-80,pos.y-40,pos.x-80,pos.y+40);
+    line(pos.x,pos.y,pos.x-100,pos.y);  //centre line**
+    line(pos.x,pos.y,pos.x-100,pos.y+40);  //right wing inner**
+    line(pos.x,pos.y,pos.x-100,pos.y-40);  //left wing inner**
+    line(pos.x,pos.y,pos.x-50,pos.y+10);   //inside cockpit right
+    line(pos.x-50,pos.y+10,pos.x-100,pos.y);
+    line(pos.x,pos.y,pos.x-50,pos.y-10);   //inside cockpit left
+    line(pos.x-50,pos.y-10,pos.x-100,pos.y);
+    line(pos.x-50,pos.y+20,pos.x-100,pos.y);  //right side middle triangle
+    line(pos.x-55,pos.y+20,pos.x-95,pos.y+5);
+    line(pos.x-50,pos.y-20,pos.x-100,pos.y);  //left side middle triangle
+    line(pos.x-55,pos.y-20,pos.x-95,pos.y-5);
+    line(pos.x-50,pos.y+20,pos.x-95,pos.y+50);  //right outer wing**
+    line(pos.x-50,pos.y-20,pos.x-95,pos.y-50);  //left outer wing**
+    line(pos.x-100,pos.y+40,pos.x-100,pos.y-40);    // bottom line
+    line(pos.x-105,pos.y+22,pos.x-105,pos.y-22);    // smaller bottom line  
+    line(pos.x-100,pos.y+20,pos.x-110,pos.y+25);    //end right exhaust
+    line(pos.x-100,pos.y-20,pos.x-110,pos.y-25);    //end left exhaust
+    line(pos.x-95,pos.y+50,pos.x-110,pos.y+25);     //right slant
+    line(pos.x-95,pos.y-50,pos.x-110,pos.y-25);     //right slant
+    line(pos.x-100,pos.y+40,pos.x-115,pos.y+40);    //right boosters
+    line(pos.x-115,pos.y+40,pos.x-115,pos.y+33);    //right boosters
+    line(pos.x-115,pos.y+33,pos.x-104,pos.y+33);    //right boosters
+    line(pos.x-100,pos.y-40,pos.x-115,pos.y-40);    // left boosters
+    line(pos.x-115,pos.y-40,pos.x-115,pos.y-33);    // left boosters
+    line(pos.x-115,pos.y-33,pos.x-104,pos.y-33);    // left boosters
+    
+    
+    ps.setEmitter(pos.x-100,pos.y);
     
   }  
+  
+  void bullet()
+  {
+    
+  }
 }

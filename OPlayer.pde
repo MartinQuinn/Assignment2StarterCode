@@ -10,6 +10,7 @@ class Player
   char button2;
   int  index;
   color colour;
+
     
   Player()
   {
@@ -48,7 +49,7 @@ class Player
   {
     if (checkKey(up))
     {
-      pos.y /= 1.01;
+      pos.y -= 5;
     }
     if (checkKey(down))
     {
@@ -69,33 +70,37 @@ class Player
     if (checkKey(button1))
     {
       println("Player " + index + " button 1");
+      
     }
     if (checkKey(button2))
     {
+      //bullet();
       println("Player " + index + " button 2");
     }    
   }
   
   void display()
   {    
+    ship();
+  }  
   
+  void ship()
+  {
     stroke(colour);
-       
-//    triangle(pos.x,pos.y,pos.x-40,pos.y-40,pos.x-40,pos.y+40);
-//    triangle(pos.x,pos.y,pos.x-80,pos.y-40,pos.x-80,pos.y+40);
-    line(pos.x,pos.y,pos.x-100,pos.y);  //centre line**
-    line(pos.x,pos.y,pos.x-100,pos.y+40);  //right wing inner**
-    line(pos.x,pos.y,pos.x-100,pos.y-40);  //left wing inner**
-    line(pos.x,pos.y,pos.x-50,pos.y+10);   //inside cockpit right
+    ellipse(pos.x-70,pos.y,100,100);
+    line(pos.x,pos.y,pos.x-100,pos.y);              //centre line**
+    line(pos.x,pos.y,pos.x-100,pos.y+40);           //right wing inner**
+    line(pos.x,pos.y,pos.x-100,pos.y-40);           //left wing inner**
+    line(pos.x,pos.y,pos.x-50,pos.y+10);            //inside cockpit right
     line(pos.x-50,pos.y+10,pos.x-100,pos.y);
-    line(pos.x,pos.y,pos.x-50,pos.y-10);   //inside cockpit left
+    line(pos.x,pos.y,pos.x-50,pos.y-10);            //inside cockpit left
     line(pos.x-50,pos.y-10,pos.x-100,pos.y);
-    line(pos.x-50,pos.y+20,pos.x-100,pos.y);  //right side middle triangle
+    line(pos.x-50,pos.y+20,pos.x-100,pos.y);        //right side middle triangle
     line(pos.x-55,pos.y+20,pos.x-95,pos.y+5);
-    line(pos.x-50,pos.y-20,pos.x-100,pos.y);  //left side middle triangle
+    line(pos.x-50,pos.y-20,pos.x-100,pos.y);        //left side middle triangle
     line(pos.x-55,pos.y-20,pos.x-95,pos.y-5);
-    line(pos.x-50,pos.y+20,pos.x-95,pos.y+50);  //right outer wing**
-    line(pos.x-50,pos.y-20,pos.x-95,pos.y-50);  //left outer wing**
+    line(pos.x-50,pos.y+20,pos.x-95,pos.y+50);      //right outer wing**
+    line(pos.x-50,pos.y-20,pos.x-95,pos.y-50);      //left outer wing**
     line(pos.x-100,pos.y+40,pos.x-100,pos.y-40);    // bottom line
     line(pos.x-105,pos.y+22,pos.x-105,pos.y-22);    // smaller bottom line  
     line(pos.x-100,pos.y+20,pos.x-110,pos.y+25);    //end right exhaust
@@ -112,10 +117,8 @@ class Player
     
     ps.setEmitter(pos.x-100,pos.y);
     
-  }  
-  
-  void bullet()
-  {
-    
   }
+  
+  
+    
 }

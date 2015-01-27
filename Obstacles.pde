@@ -16,56 +16,60 @@ class Obstacles
     
   }
   
-  Obstacles(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
+  Obstacles(float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
   {
     this();
-    this.index      = index;
-    this.colour     = colour;
     this.cirWidth   = cirWidth;
     this.cirHeight  = cirHeight;
     this.scal       = scal;
     this.prog       = prog;
     this.halfWidth  = halfWidth;
     this.halfHeight = halfHeight;
+    setupSpawn();
   }
   
-  Obstacles(int index,float cirWidth, float cirHeight )
-  {
-    this(); 
-    this.index      = index;
-    this.cirWidth   = cirWidth;
-    this.cirHeight  = cirHeight;
-  }
   
   void update()
   {
-    if(pos.y+prog >= height+cirHeight)
+    if(pos.x-prog+obsWidth <= 0 )
     {
-      pos.x = random(obsWidth,width-obsWidth);
+      
+      pos.x = random(width,width*2);
+      pos.y = random(0,height);
       scal = 1.005;
+      prog=0;
       
-      cirWidth = obsWidth;
-      cirHeight = obsHeight;
-      prog=1;
     }
-    else
+    
+    else if( meteorDead == true)
     {
-      scal = 1.003;
-      
-      cirWidth = cirWidth*scal;
-      cirHeight = cirHeight*scal;
+      pos.x = random(width,width*2);
+      pos.y = random(0,height);
+      scal = 1.005;
+      prog=0;
+      println(meteorDead);
+      meteorDead=false;
     }
+    
   }
   
   void display()
   {
-    PImage Ast = loadImage("ast2.png");
+    
     fill(0);
     stroke(255);
-    ellipse(pos.x+(cirWidth/2),pos.y+prog+(cirHeight/2),cirWidth-3,cirHeight-3);
+   // ellipse(pos.x+(cirWidth/2),pos.y+prog+(cirHeight/2),cirWidth-3,cirHeight-3);
     noFill();
-    image(Ast,pos.x,pos.y+prog,cirWidth,cirHeight);
+    image(Ast,pos.x-prog,pos.y,obsWidth,obsHeight);
     
-    prog = prog + 2 ;
+    prog = prog + 5 ;
+  }
+  
+  void setupSpawn()
+  {
+    
+    this.pos = new PVector(random(width, width *2), random(0, height));
+    this.cirWidth   = obsWidth;
+    this.cirHeight  = obsHeight;
   }
 }

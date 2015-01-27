@@ -1,6 +1,6 @@
 // An individual Particle
 
-class Particle {
+class Particle extends Player{
 
   // Velocity
   PVector center;
@@ -35,7 +35,7 @@ class Particle {
     center = new PVector(); 
     
     // Set the particle starting location
-    rebirth(width/2, height/2);
+    rebirth(0, 0);
   }
 
   PShape getShape() 

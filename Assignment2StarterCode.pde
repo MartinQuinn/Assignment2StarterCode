@@ -14,22 +14,31 @@ boolean[] keys = new boolean[526];
 ParticleSystem ps;
 // A PImage for particle's texture
 PImage sprite; 
-float obsWidth  = 60;
-float obsHeight = 50;
+float obsWidth  = width/16;
+float obsHeight = width/16;
 PImage crash;
 PImage Ast;
 PImage Star;
-
+PImage MainMenu;
+int OBSTACLE_COUNT;
+boolean GameOn = true;
+boolean meteorDead;
+int lives = 0;
+int score = 0;
 
 
 void setup()
 {
-  size(800, 640, P3D);
+  obsWidth  = width/16;
+  obsHeight = width/16;
+  size(800, 640, P2D);
   setUpPlayerControllers();
   intialiseObstacles();
   
   // Load the image
   sprite = loadImage("sprite.png");
+  Ast = loadImage("ast2.png");
+  Star = loadImage("starBonus.png");
   // A new particle system with particles
   ps = new ParticleSystem(65);
  
@@ -45,26 +54,32 @@ void setup()
 
 void draw()
 {
-  
-
-  background(0);
-  // Update and display system
-  
-  for(Obstacles Obstacles:obstacles)
+  gameMenu();
+  if(GameOn==true)
   {
+          
     
-    Obstacles.update();
-    Obstacles.display();
-  }
   
-  
-  for(Player player:players)
-  {
-    ps.update();
-    ps.display();
-    player.update();
-    player.display();
+    background(0);
+    // Update and display system
     
+    for(Obstacles Obstacles:obstacles)
+    {
+      Obstacles.display();
+      Obstacles.update();
+      hitDetection();
+      
+    }
+    
+    
+    for(Player player:players)
+    {
+      ps.update();
+      ps.display();
+      player.update();
+      player.display();
+      
+    }
   }
 }
 
@@ -116,7 +131,7 @@ void setUpPlayerControllers()
   int gap = height/3;
   //int gap = width / (children.length + 1);
   
-  for(int i = 0 ; i < children.length ; i ++)  
+  for(int i = 0 ; i < 1 ; i ++)  
   {
     XML playerXML = children[i];
     Player p = new Player(i, color(255), playerXML);
@@ -128,21 +143,13 @@ void setUpPlayerControllers()
 }
 
 void intialiseObstacles()
-{
-  Obstacles o1 = new Obstacles(1,obsWidth,obsHeight);
-  o1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
-  o1.pos.y= random(0,500);
-  obstacles.add(o1);
-  
-  Obstacles o2 = new Obstacles(2,obsWidth,obsHeight);
-  o2.pos.x= random(-obsWidth*2,width-(obsWidth*2));
-  o2.pos.y= random(-125,-25);
-  obstacles.add(o2);
-  
-  Obstacles o3 = new Obstacles(3,obsWidth,obsHeight);
-  o3.pos.x= random(-obsWidth*2,width-(obsWidth*2));
-  o3.pos.y= random(-125,-25);
-  obstacles.add(o3);
+{  
+  OBSTACLE_COUNT = 10;
+  meteorDead=false;
+  for(int i = 0; i < OBSTACLE_COUNT; i++) 
+  {
+    obstacles.add(new Obstacles());
+  } 
   
   PowerUP p1 = new PowerUP(1,obsWidth,obsHeight);
   p1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
@@ -152,4 +159,49 @@ void intialiseObstacles()
   
 }
 
+void gameMenu()
+{
+  background(0);
+  PImage MainMenu = loadImage("MainMenu.png");
+  image(MainMenu,width/6,height/10,2*height/3,width/5);
+  
+  rect(width/4,2*height/5,width/2,height/10,width/100);
+  
+  rect(width/4,3*(height/5),width/2,height/10,width/100);
+  rect(width/4,4*(height/5),width/2,height/10,width/100);
+  
+  
+}
+  
+void hitDetection()
+{
+    
+    for(int i=0; i< players.size();i++)
+    {
+      
+      Player player1 = players.get(i);
+  
+      for(int j=0; j< obstacles.size();j++)
+      {
+        Obstacles obstacles1 = obstacles.get(j);
+        if(dist(player1.pos.x,player1.pos.y,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 50)
+        {
+          lives = lives -1;
+          meteorDead = true;
+          println(meteorDead);
+          
+        }
+      }
+      for(int j=0; j< powerUP.size();j++)
+      {
+        PowerUP powerup1 = powerUP.get(j);
+        if(dist(player1.pos.x,player1.pos.y,powerup1.pos.x,powerup1.pos.y+powerup1.prog)<= 5)
+        {
+          score = score +1;
+          println(lives);
+          
+        }
+      }
+    }
+}
 

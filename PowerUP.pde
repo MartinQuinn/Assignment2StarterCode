@@ -49,7 +49,7 @@ class PowerUP extends Obstacles
   
   void display()
   {
-    PImage Star = loadImage("starBonus.png");
+    
     noFill();
     image(Star,pos.x,pos.y+prog,cirWidth,cirHeight);
     prog = prog + 3f;

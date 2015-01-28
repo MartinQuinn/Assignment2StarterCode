@@ -61,6 +61,7 @@ class Player
     }    
     if (checkKey(right))
     {
+      song.play();
       pos.x += 5;
     }
     if (checkKey(start))
@@ -87,7 +88,6 @@ class Player
   void ship()
   {
     stroke(colour);
-    ellipse(pos.x-70,pos.y,100,100);
     line(pos.x,pos.y,pos.x-100,pos.y);              //centre line**
     line(pos.x,pos.y,pos.x-100,pos.y+40);           //right wing inner**
     line(pos.x,pos.y,pos.x-100,pos.y-40);           //left wing inner**

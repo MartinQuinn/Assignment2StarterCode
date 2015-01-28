@@ -16,19 +16,33 @@ ParticleSystem ps;
 PImage sprite; 
 float obsWidth  = width/16;
 float obsHeight = width/16;
-PImage crash;
+
 PImage Ast;
 PImage Star;
 PImage MainMenu;
 int OBSTACLE_COUNT;
-boolean GameOn = true;
+boolean GameOn = false;
 boolean meteorDead;
+boolean player1 = false;
+boolean player2 = false;
+boolean spawn = false;
 int lives = 0;
 int score = 0;
+
+import ddf.minim.*;
+
+Minim minim;
+AudioPlayer song;
 
 
 void setup()
 {
+  minim = new Minim(this);
+
+  // this loads mysong.wav from the data folder
+  song = minim.loadFile("movement.wav");
+  
+  
   obsWidth  = width/16;
   obsHeight = width/16;
   size(800, 640, P2D);
@@ -40,7 +54,7 @@ void setup()
   Ast = loadImage("ast2.png");
   Star = loadImage("starBonus.png");
   // A new particle system with particles
-  ps = new ParticleSystem(65);
+  ps = new ParticleSystem(45);
  
 
   // Writing to the depth buffer is disabled to avoid rendering
@@ -54,6 +68,16 @@ void setup()
 
 void draw()
 {
+  if(GameOn==true && player1 == true && spawn == true)
+  {
+    setUpPlayerControllers();
+    spawn = false;
+  }
+  if(GameOn==true && player2== true && spawn == true)
+  {
+    setUpPlayerControllers();
+    spawn = false;
+  }
   gameMenu();
   if(GameOn==true)
   {
@@ -117,7 +141,11 @@ char buttonNameToKey(XML xml, String buttonName)
   {
     return DOWN;
   }
-  //  this.start = start;
+  if ("START".equalsIgnoreCase(value))
+  {
+    return 'q';
+  }
+  //  
   //  this.button1 = button1;
   //  this.button2 = button2;
   //.. Others to follow
@@ -129,17 +157,25 @@ void setUpPlayerControllers()
   XML xml = loadXML("arcade.xml");
   XML[] children = xml.getChildren("player");
   int gap = height/3;
+  int num =0;
   //int gap = width / (children.length + 1);
-  
-  for(int i = 0 ; i < 1 ; i ++)  
+  if(player1 == true)
   {
-    XML playerXML = children[i];
-    Player p = new Player(i, color(255), playerXML);
-    int y = (i + 1) * gap;
-    p.pos.x = height/3;
-    p.pos.y = y;
-    players.add(p);         
+    num=1;
   }
+  else if(player2 == true)
+  {
+    num =2;
+  }
+  for(int i = 0 ; i < num ; i ++)  
+    {
+      XML playerXML = children[i];
+      Player p = new Player(i, color(255), playerXML);
+      int y = (i + 1) * gap;
+      p.pos.x = height/3;
+      p.pos.y = y;
+      players.add(p);         
+    }
 }
 
 void intialiseObstacles()
@@ -161,16 +197,39 @@ void intialiseObstacles()
 
 void gameMenu()
 {
-  background(0);
-  PImage MainMenu = loadImage("MainMenu.png");
-  image(MainMenu,width/6,height/10,2*height/3,width/5);
   
-  rect(width/4,2*height/5,width/2,height/10,width/100);
-  
-  rect(width/4,3*(height/5),width/2,height/10,width/100);
-  rect(width/4,4*(height/5),width/2,height/10,width/100);
-  
-  
+  PImage MainMenu = loadImage("menucanvas.png");
+  background(MainMenu);
+    if (checkKey('q'))
+    {
+      player1 = true;
+      GameOn = true;
+      spawn = true;
+      
+    }
+    if (checkKey('e'))
+    {
+      player2 = true;
+      GameOn = true;
+      spawn = true;
+     
+    }
+    if (checkKey('r'))
+    {
+      
+    }
+//  <button1>e</button1><button2>r</button2>
+//  image(MainMenu,width/6,height/10,3*height/4,width/5);
+//  fill(255);
+//  text(" 1Player ", width/2,500);
+//  text(" 2Player ", width/2,50);
+//  text(" Info ",    width/2,600);
+//  fill(255);
+//  rect(width/4,2*height/5,width/2,height/10,width/100);
+//  rect(width/4,3*(height/5),width/2,height/10,width/100);
+//  rect(width/4,4*(height/5),width/2,height/10,width/100);
+//  
+//  
 }
   
 void hitDetection()

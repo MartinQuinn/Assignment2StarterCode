@@ -1,6 +1,7 @@
 // An individual Particle
 
-class Particle extends Player{
+class Particle extends Player
+{
 
   // Velocity
   PVector center;

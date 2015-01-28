@@ -58,7 +58,7 @@ class Obstacles
     
     fill(0);
     stroke(255);
-   // ellipse(pos.x+(cirWidth/2),pos.y+prog+(cirHeight/2),cirWidth-3,cirHeight-3);
+   
     noFill();
     image(Ast,pos.x-prog,pos.y,obsWidth,obsHeight);
     

@@ -1,8 +1,6 @@
-// The Particle System
-
 class ParticleSystem 
 {
-  // It's just an ArrayList of particle objects
+  // ArrayList of particle objects
   ArrayList<Particle> particles;
 
   // The PShape to group all the particle PShapes
@@ -19,7 +17,7 @@ class ParticleSystem
     {
       Particle p = new Particle();
       particles.add(p);
-      // Each particle's PShape gets added to the System PShape
+      // PShape gets added to the System PShape
       particleShape.addChild(p.getShape());
     }
   }
@@ -36,7 +34,7 @@ class ParticleSystem
   {
     for (Particle p : particles) 
     {
-      // Each particle gets reborn at the emitter location
+      //  rebirth at the emitter location
       if (p.isDead()) 
       {
         p.rebirth(x, y);

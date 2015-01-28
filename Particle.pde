@@ -3,18 +3,11 @@
 class Particle extends Player
 {
 
-  // Velocity
   PVector center;
   PVector velocity;
-  // Lifespan is tied to alpha
   float lifespan;
-
-  // The particle PShape
   PShape part;
-  // The particle size
   float partSize;
-
-  // A single force
   PVector gravity = new PVector(-1, 0);
 
   Particle() 

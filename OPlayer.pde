@@ -49,20 +49,32 @@ class Player
   {
     if (checkKey(up))
     {
-      pos.y -= 5;
+      if(pos.y > 50)
+      {
+        pos.y -= 5;
+      }
     }
     if (checkKey(down))
     {
-      pos.y += 5;
+      if(pos.y < width-50)
+      {
+        pos.y += 5;
+      }
     }
     if (checkKey(left))
     {
-      pos.x -= 5;
+      
+      pos.x /= 1.1;
+      
     }    
     if (checkKey(right))
     {
-      song.play();
-      pos.x += 5;
+      if(pos.x < width)
+      {
+        movement.play();
+        movement.rewind();
+        pos.x *= 1.1;
+      }
     }
     if (checkKey(start))
     {
@@ -117,8 +129,5 @@ class Player
     
     ps.setEmitter(pos.x-100,pos.y);
     
-  }
-  
-  
-    
+  }  
 }

@@ -6,33 +6,24 @@ class PowerUP extends Obstacles
     
   }
   
-  PowerUP(int index,color colour,float cirWidth,  float cirHeight,float scal, float prog ,  float halfWidth , float halfHeight )
+  PowerUP(int index,color colour,float cirWidth,  float cirHeight, float prog ,  float halfWidth , float halfHeight )
   {
     this();
-    this.index      = index;
-    this.colour     = colour;
     this.cirWidth   = cirWidth;
     this.cirHeight  = cirHeight;
-    this.scal       = scal;
     this.prog       = prog;
     this.halfWidth  = halfWidth;
     this.halfHeight = halfHeight;
+    setupSpawn();
   }
   
-  PowerUP(int index,float cirWidth, float cirHeight )
-  {
-    this(); 
-    this.index      = index;
-    this.cirWidth   = cirWidth;
-    this.cirHeight  = cirHeight;
-  }
-  
+ 
   void update()
   {
     if(pos.y+prog >= height+cirHeight)
     {
       pos.x = random(obsWidth,width-obsWidth);
-      scal = 1.005;
+      
       
       cirWidth = obsWidth;
       cirHeight = obsHeight;
@@ -40,10 +31,9 @@ class PowerUP extends Obstacles
     }
     else
     {
-      scal = 1.003;
       
-      cirWidth = cirWidth*scal;
-      cirHeight = cirHeight*scal;
+      cirWidth = cirWidth;
+      cirHeight = cirHeight;
     }
   }
   
@@ -51,7 +41,15 @@ class PowerUP extends Obstacles
   {
     
     noFill();
-    image(Star,pos.x,pos.y+prog,cirWidth,cirHeight);
+    image(Star,pos.x,pos.y+prog,obsWidth,obsHeight);
     prog = prog + 3f;
+  }
+  
+  void setupSpawn()
+  {
+    
+    this.pos = new PVector(random(width/2, width), random(-height, -obsHeight));
+    this.cirWidth   = obsWidth;
+    this.cirHeight  = obsHeight;
   }
 }

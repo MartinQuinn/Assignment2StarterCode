@@ -21,7 +21,9 @@ PImage Ast;
 PImage Star;
 PImage MainMenu;
 int OBSTACLE_COUNT;
+int POWUP_COUNT;
 boolean GameOn = false;
+boolean GameOver = false;
 boolean meteorDead;
 boolean player1 = false;
 boolean player2 = false;
@@ -68,24 +70,34 @@ void setup()
 
 void draw()
 {
-  if(GameOn==true && player1 == true && spawn == true)
+  if (GameOver == true)
   {
-    setUpPlayerControllers();
-    spawn = false;
+    gameOver();
   }
-  if(GameOn==true && player2== true && spawn == true)
-  {
-    setUpPlayerControllers();
-    spawn = false;
-  }
-  gameMenu();
-  if(GameOn==true)
-  {
-          
     
+  if(GameOn==true && player1 == true && spawn == true && GameOver == false)
+  {
+    setUpPlayerControllers();
+    spawn = false;
+  }
+  if(GameOn==true && player2== true && spawn == true && GameOver == false)
+  {
+    setUpPlayerControllers();
+    spawn = false;
+  }
+  if(GameOver == false)
+  {
+    gameMenu();
+  }
+  if(GameOn==true && GameOver == false)
+  {
+   
   
     background(0);
     // Update and display system
+     fill(255);      
+    text("score:" + score ,width/20,height/20);
+    text("lives:" + lives ,width/20,2*height/20);
     
     for(Obstacles Obstacles:obstacles)
     {
@@ -95,6 +107,13 @@ void draw()
       
     }
     
+    for(PowerUP PowerUP:powerUP)
+    {
+      PowerUP.display();
+      PowerUP.update();
+      hitDetection();
+      
+    }
     
     for(Player player:players)
     {
@@ -180,17 +199,18 @@ void setUpPlayerControllers()
 
 void intialiseObstacles()
 {  
-  OBSTACLE_COUNT = 10;
+  OBSTACLE_COUNT = (int)random(5,10);
+  POWUP_COUNT = (int)random(0,4);
   meteorDead=false;
   for(int i = 0; i < OBSTACLE_COUNT; i++) 
   {
     obstacles.add(new Obstacles());
   } 
   
-  PowerUP p1 = new PowerUP(1,obsWidth,obsHeight);
-  p1.pos.x= random(-obsWidth*2,width-(obsWidth*2));
-  p1.pos.y= random(-125,-25);
-  obstacles.add(p1);
+  for(int i = 0; i < POWUP_COUNT; i++) 
+  {
+    powerUP.add(new PowerUP());
+  } 
   
   
 }
@@ -243,24 +263,52 @@ void hitDetection()
       for(int j=0; j< obstacles.size();j++)
       {
         Obstacles obstacles1 = obstacles.get(j);
-        if(dist(player1.pos.x,player1.pos.y,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 50)
+        if(dist(player1.pos.x,player1.pos.y,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-70,player1.pos.y-40,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-70,player1.pos.y+40,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-90,player1.pos.y-60,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-90,player1.pos.y+60,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-110,player1.pos.y-60,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-110,player1.pos.y+60,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 20 ||
+           dist(player1.pos.x-110,player1.pos.y,obstacles1.pos.x-obstacles1.prog,obstacles1.pos.y)<= 30)
         {
           lives = lives -1;
-          meteorDead = true;
+          obstacles1.pos.x = random(width,width*2);
+          obstacles1.prog = 0;
+          obstacles1.pos.y = random(0,height);
           println(meteorDead);
-          
-        }
-      }
-      for(int j=0; j< powerUP.size();j++)
-      {
-        PowerUP powerup1 = powerUP.get(j);
-        if(dist(player1.pos.x,player1.pos.y,powerup1.pos.x,powerup1.pos.y+powerup1.prog)<= 5)
-        {
-          score = score +1;
           println(lives);
+          if(lives == -1);
+          {
+            GameOver = true;
+          }
           
         }
+        for(int index=0; index< powerUP.size();index++)
+        {
+          PowerUP powerup1 = powerUP.get(index);
+          if(dist(player1.pos.x,player1.pos.y,powerup1.pos.x+(obsWidth/2),powerup1.pos.y+powerup1.prog)<= 50)
+          {
+            score = score +1;
+            powerup1.pos.x = random(width/2,width-obsWidth);
+            powerup1.pos.y = random(-height,0-obsWidth);
+            powerup1.prog = 0;
+            println(score);
+            
+          }
+        }
       }
+      
     }
 }
 
+void gameOver()
+{
+  background(0);
+  textSize(width/10);
+  fill(255);
+  textAlign(CENTER);
+  text("GAME OVER!", width/2, height/2);
+  text("Score:"+score,width/2, 2*height/3);
+
+}
